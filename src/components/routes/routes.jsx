@@ -4,6 +4,7 @@ import {
 import App from "../../App"
 import LogIn from "../AuthenticatePages/LogIn/LogIn";
 import Register from "../AuthenticatePages/Register/Register";
+import Home from "../Home/Home";
 
 // Configure React Router 
 export const router = createBrowserRouter([
@@ -12,8 +13,12 @@ export const router = createBrowserRouter([
         element: <App></App>,
         children: [
             {
+                path: "/",
+                element: <Home></Home>
+            },
+            {
                 path: "/home",
-                element: <App></App>
+                element: <Home></Home>
             },
             {
                 path: "/login",

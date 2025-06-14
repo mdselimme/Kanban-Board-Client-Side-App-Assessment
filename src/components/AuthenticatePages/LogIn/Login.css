@@ -1,0 +1,7 @@
+.login-input {
+  outline: none;
+}
+
+.login-input::placeholder {
+  font-size: 15px;
+}
