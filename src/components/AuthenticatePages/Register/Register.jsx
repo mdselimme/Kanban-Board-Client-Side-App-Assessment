@@ -1,7 +1,13 @@
+import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 import { Link } from "react-router";
 const Register = () => {
+
+    const [seePass, setSeePass] = useState(false);
+
     return (
         <section>
             <div className='w-[35rem] mt-20 rounded-4xl p-16 mx-auto bg-[rgba(148,12,245,0.05)]'>
@@ -25,7 +31,12 @@ const Register = () => {
                         <label htmlFor="password" className="text-base font-medium text-[#04141E]">Password</label>
                         <div className="flex items-center mt-3">
                             <FaLock className="mr-2" />
-                            <input id="password" className="w-full text-lg login-input" type="password" placeholder='Type your valid password here' />
+                            <input id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
+                            <span onClick={() => setSeePass(!seePass)}>
+                                {
+                                    seePass ? <IoEyeOff className="text-xl" /> : <FaEye className="text-xl" />
+                                }
+                            </span>
                         </div>
                     </div>
                     <button type="button" class="mt-8 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-lg px-5 py-2.5 w-full text-center me-2 mb-2 ">Register User</button>

@@ -1,8 +1,14 @@
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 import "./Login.css";
 import { Link } from "react-router";
+import { useState } from "react";
 const LogIn = () => {
+
+    const [seePass, setSeePass] = useState(false);
+
     return (
         <section>
             <div className='w-[35rem] mt-24 rounded-4xl p-16 mx-auto bg-[rgba(148,12,245,0.05)]'>
@@ -19,7 +25,12 @@ const LogIn = () => {
                         <label htmlFor="password" className="text-base font-medium text-[#04141E]">Password</label>
                         <div className="flex items-center mt-3">
                             <FaLock className="mr-2" />
-                            <input id="password" className="w-full text-lg login-input" type="password" placeholder='Type your valid password here' />
+                            <input id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
+                            <span onClick={() => setSeePass(!seePass)}>
+                                {
+                                    seePass ? <IoEyeOff className="text-xl" /> : <FaEye className="text-xl" />
+                                }
+                            </span>
                         </div>
                     </div>
                     <p className="text-end py-4 cursor-pointer text-base text-gray-500 hover:underline">Forget Password</p>
