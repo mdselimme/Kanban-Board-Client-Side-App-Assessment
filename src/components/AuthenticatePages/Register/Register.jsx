@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
 import { Link } from "react-router";
@@ -23,7 +24,7 @@ const Register = () => {
                     <div className="border-b border-[#E3E3E3] pb-2 mt-8">
                         <label htmlFor="email" className="text-base font-medium text-[#04141E]">Email</label>
                         <div className="flex items-center mt-3">
-                            <FaUser className="mr-2" />
+                            <MdEmail className="mr-2 text-xl" />
                             <input id="email" className="w-full text-lg login-input" type="email" placeholder='Type your valid email here' />
                         </div>
                     </div>
