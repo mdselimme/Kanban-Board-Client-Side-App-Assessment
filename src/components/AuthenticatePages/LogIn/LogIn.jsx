@@ -7,7 +7,8 @@ import { Link, useNavigate } from "react-router";
 import { useRef, useState } from "react";
 import useAxiosUrl from "../../hooks/useAxiosUrl";
 import Swal from "sweetalert2";
-import useAuthContext from "../../hooks/useAuthContext";
+import useAuth from "../../hooks/useAuth";
+
 
 
 const LogIn = () => {
@@ -17,7 +18,7 @@ const LogIn = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const navigate = useNavigate();
-    const { setLoggedIn } = useAuthContext();
+    const { setLoggedIn } = useAuth();
 
     const handleLogInSubmit = async (e) => {
         e.preventDefault();

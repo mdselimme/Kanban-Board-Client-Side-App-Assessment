@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router";
-import useAuthContext from "../hooks/useAuthContext";
 import useAxiosUrl from "../hooks/useAxiosUrl";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 
 const Navbar = () => {
 
-    const { loggedIn, setLoggedIn } = useAuthContext();
+    const { loggedIn, setLoggedIn } = useAuth();
     const navigate = useNavigate();
 
     // Log Out User 
