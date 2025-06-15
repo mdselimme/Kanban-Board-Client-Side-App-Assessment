@@ -40,7 +40,7 @@ const Register = () => {
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mt-8 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-lg px-5 py-2.5 w-full text-center me-2 mb-2 ">Register User</button>
+                    <button type="button" className="mt-8 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-lg px-5 py-2.5 w-full text-center me-2 mb-2 ">Register User</button>
                 </form>
                 <div>
                     <p className="text-center py-4 cursor-pointer text-base text-gray-500">Already Have An Account ? <Link className="underline hover:text-[#9E26FD]" to={'/login'}>

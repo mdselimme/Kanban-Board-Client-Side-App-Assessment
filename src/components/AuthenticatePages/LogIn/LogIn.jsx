@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router";
 import { useRef, useState } from "react";
 import useAxiosUrl from "../../hooks/useAxiosUrl";
 import Swal from "sweetalert2";
-
-
+import useAuthContext from "../../hooks/useAuthContext";
 
 
 const LogIn = () => {
@@ -18,6 +17,7 @@ const LogIn = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const navigate = useNavigate();
+    const { setLoggedIn } = useAuthContext();
 
     const handleLogInSubmit = async (e) => {
         e.preventDefault();
@@ -28,6 +28,7 @@ const LogIn = () => {
             const response = await useAxiosUrl.post('/users/login', { email, password });
             const resp = await response.data;
             if (resp.token) {
+                setLoggedIn(true);
                 Swal.fire({
                     icon: "success",
                     title: resp.message,
@@ -42,7 +43,7 @@ const LogIn = () => {
         } catch (error) {
             console.log(error.message)
         }
-    }
+    };
 
     return (
         <section>
@@ -69,7 +70,7 @@ const LogIn = () => {
                         </div>
                     </div>
                     <p className="text-end py-4 cursor-pointer text-base text-gray-500 hover:underline">Forget Password</p>
-                    <button type="submit" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-lg px-5 py-2.5 w-full text-center me-2 mb-2 ">Log In</button>
+                    <button type="submit" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-lg px-5 py-2.5 w-full text-center me-2 mb-2 ">Log In</button>
                 </form>
                 <div>
                     <p className="text-center py-4 cursor-pointer text-base text-gray-500">No Account ? <Link className="underline hover:text-[#9E26FD]" to={'/register'}>
