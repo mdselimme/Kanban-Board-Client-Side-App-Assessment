@@ -3,9 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import useAxiosUrl from '../hooks/useAxiosUrl';
+import Swal from 'sweetalert2';
 
 const AddTask = () => {
 
+    // Todo Input Ref 
     const taskTitleRef = useRef(null);
     const taskDescriptionRef = useRef(null);
     const taskDeadlineRef = useRef(null);
@@ -18,14 +20,14 @@ const AddTask = () => {
         e.preventDefault();
 
         try {
+            // All Todo Data From Input
             const userId = user.id;
             const todoTitle = taskTitleRef.current.value;
             const todoDescription = taskDescriptionRef.current.value;
             const todoDeadlineFind = taskDeadlineRef.current.value;
-            // const todoDeadline = todoDeadlineFind.toString();
-            const todoDeadline = "2025-06-17";
-            console.log(todoDeadline)
+            const todoDeadline = todoDeadlineFind.toString();
             const todoPriority = taskPriorityRef.current.value;
+            // Todo Body 
             const todoBody = {
                 userId,
                 todoTitle,
@@ -34,12 +36,26 @@ const AddTask = () => {
                 todoPriority,
                 todoStatus: "todo"
             }
+            // Api Call And Add Data 
             const resp = await useAxiosUrl.post('/todos/add-todo', todoBody);
             const data = await resp.data;
-            console.log(data);
-            e.target.reset();
+            if (data.success) {
+                // Success Message 
+                Swal.fire({
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                e.target.reset();
+            }
         } catch (error) {
-            console.log(error.message)
+            Swal.fire({
+                icon: "error",
+                title: error.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     };
 
@@ -83,6 +99,7 @@ const AddTask = () => {
                             <option defaultValue="Low">Low</option>
                         </select>
                     </div>
+                    {/* Add Task Button  */}
                     <div className='mt-5 text-end'>
                         <button type="submit" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Task</button>
                     </div>
