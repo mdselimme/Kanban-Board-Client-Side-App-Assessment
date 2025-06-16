@@ -2,14 +2,14 @@
 
 import HeroSection from "../HeroSection/HeroSection";
 import useAuth from "../hooks/useAuth";
-import Tasks from "../Tasks/Tasks";
+import AddTask from "../Tasks/AddTask";
 
 const Home = () => {
-    const { setLoggedIn } = useAuth();
+    const { loggedIn } = useAuth();
     return (
         <section className='container mx-auto'>
             {
-                setLoggedIn ? <Tasks></Tasks> : <HeroSection></HeroSection>
+                loggedIn ? <AddTask></AddTask> : <HeroSection></HeroSection>
             }
         </section>
     )

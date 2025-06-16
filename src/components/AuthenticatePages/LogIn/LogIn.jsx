@@ -42,7 +42,12 @@ const LogIn = () => {
             };
             console.log(resp);
         } catch (error) {
-            console.log(error.message)
+            Swal.fire({
+                icon: "error",
+                title: error.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     };
 

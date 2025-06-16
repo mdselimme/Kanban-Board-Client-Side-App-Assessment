@@ -8,19 +8,26 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
 
     const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const data = localStorage.getItem('token');
-        if (data) {
-            setLoggedIn(true)
+        const tokenExists = localStorage.getItem('token');
+        const userExists = localStorage.getItem("user");
+        if (tokenExists && userExists) {
+            const parseUser = JSON.parse(userExists);
+            setUser(parseUser);
+            setLoggedIn(true);
             return;
+        } else {
+            setLoggedIn(false);
+            setUser(null);
         }
-        setLoggedIn(false);
+
     }, []);
 
 
     const authValue = {
-        loggedIn, setLoggedIn
+        loggedIn, setLoggedIn, user
     }
 
     return (
