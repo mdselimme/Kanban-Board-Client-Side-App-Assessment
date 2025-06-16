@@ -3,13 +3,18 @@
 import HeroSection from "../HeroSection/HeroSection";
 import useAuth from "../hooks/useAuth";
 import AddTask from "../Tasks/AddTask";
+import TaskSection from "../Tasks/TaskSection";
 
 const Home = () => {
     const { loggedIn } = useAuth();
     return (
         <section className='container mx-auto'>
             {
-                loggedIn ? <AddTask></AddTask> : <HeroSection></HeroSection>
+                loggedIn ? <>
+                    <AddTask></AddTask>
+                    <TaskSection></TaskSection>
+                </>
+                    : <HeroSection></HeroSection>
             }
         </section>
     )

@@ -18,7 +18,7 @@ const LogIn = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const navigate = useNavigate();
-    const { setLoggedIn } = useAuth();
+    const { setLoggedIn, setUser } = useAuth();
 
     const handleLogInSubmit = async (e) => {
         e.preventDefault();
@@ -36,15 +36,16 @@ const LogIn = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                setUser(resp.user);
                 localStorage.setItem("token", resp.token);
                 localStorage.setItem("user", JSON.stringify(resp.user));
                 navigate('/');
             };
-            console.log(resp);
+
         } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: error.message,
+                title: error.response.data.message,
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -60,14 +61,14 @@ const LogIn = () => {
                         <label htmlFor="email" className="text-base font-medium text-[#04141E]">Email</label>
                         <div className="flex items-center mt-3">
                             <MdEmail className="mr-2 text-xl" />
-                            <input ref={emailRef} name="email" id="email" className="w-full text-lg login-input" type="email" placeholder='Type your valid email here' />
+                            <input autoComplete="email" ref={emailRef} name="email" id="email" className="w-full text-lg login-input" type="email" placeholder='Type your valid email here' />
                         </div>
                     </div>
                     <div className="border-b border-[#E3E3E3] pb-2 mt-8">
                         <label htmlFor="password" className="text-base font-medium text-[#04141E]">Password</label>
                         <div className="flex items-center mt-3">
                             <FaLock className="mr-2" />
-                            <input ref={passwordRef} name="password" id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
+                            <input autoComplete="current-password" ref={passwordRef} name="password" id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
                             <span onClick={() => setSeePass(!seePass)}>
                                 {
                                     seePass ? <IoEyeOff className="text-xl" /> : <FaEye className="text-xl" />

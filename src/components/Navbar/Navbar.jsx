@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
 
-    const { loggedIn, setLoggedIn } = useAuth();
+    const { loggedIn, setLoggedIn, setUser } = useAuth();
     const navigate = useNavigate();
 
     // Log Out User 
@@ -16,6 +16,7 @@ const Navbar = () => {
             const data = await response.data;
             if (data.success) {
                 setLoggedIn(false);
+                setUser(null);
                 // Show Alert After LogOut 
                 Swal.fire({
                     icon: "success",
@@ -29,7 +30,12 @@ const Navbar = () => {
                 localStorage.removeItem("user");
             }
         } catch (error) {
-            console.log(error)
+            Swal.fire({
+                icon: "error",
+                title: error.response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
     };
 

@@ -50,9 +50,10 @@ const AddTask = () => {
                 e.target.reset();
             }
         } catch (error) {
+            console.log(error)
             Swal.fire({
                 icon: "error",
-                title: error.message,
+                title: error.response.data.message,
                 showConfirmButton: false,
                 timer: 1500
             })

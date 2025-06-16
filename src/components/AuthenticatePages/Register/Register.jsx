@@ -38,7 +38,7 @@ const Register = () => {
         } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: error.message,
+                title: error.response.data.message,
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -71,7 +71,7 @@ const Register = () => {
                         <label htmlFor="password" className="text-base font-medium text-[#04141E]">Password</label>
                         <div className="flex items-center mt-3">
                             <FaLock className="mr-2" />
-                            <input ref={passwordRef} id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
+                            <input autoComplete="current-password" ref={passwordRef} id="password" className="w-full text-lg login-input" type={seePass ? "text" : "password"} placeholder='Type your valid password here' />
                             <span onClick={() => setSeePass(!seePass)}>
                                 {
                                     seePass ? <IoEyeOff className="text-xl" /> : <FaEye className="text-xl" />
