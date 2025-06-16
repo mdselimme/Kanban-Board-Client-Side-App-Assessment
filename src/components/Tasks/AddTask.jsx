@@ -13,7 +13,7 @@ const AddTask = () => {
     const taskDeadlineRef = useRef(null);
     const taskPriorityRef = useRef(null);
     const [minDateTime, setMinDateTime] = useState('');
-    const { user } = useAuth();
+    const { user, setCallFetch } = useAuth();
 
     //Add Tasks Form Submit 
     const handleTaskFormSubmit = async (e) => {
@@ -40,6 +40,7 @@ const AddTask = () => {
             const resp = await useAxiosUrl.post('/todos/add-todo', todoBody);
             const data = await resp.data;
             if (data.success) {
+                setCallFetch(true);
                 // Success Message 
                 Swal.fire({
                     icon: "success",

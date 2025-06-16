@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [todosByUser, setTodosByUser] = useState([]);
+    const [callFetch, setCallFetch] = useState(false);
 
     // Set state for login and token check 
     useEffect(() => {
@@ -32,8 +33,8 @@ const AuthProvider = ({ children }) => {
             const fetchData = async () => {
                 const response = await useAxiosUrl.get(`/todos/${user.id}`);
                 const todos = await response.data;
-                console.log(todos)
                 setTodosByUser(todos);
+                setCallFetch(false);
             };
             fetchData();
             return;
@@ -41,11 +42,11 @@ const AuthProvider = ({ children }) => {
             setTodosByUser([])
         }
 
-    }, [user])
+    }, [user, callFetch])
 
 
     const authValue = {
-        loggedIn, setLoggedIn, user, setUser, todosByUser
+        loggedIn, setLoggedIn, user, setUser, todosByUser, setCallFetch
     }
 
     return (
