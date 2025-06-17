@@ -92,16 +92,20 @@ const SingleTask = ({ todo }) => {
             <h3><span className='text-blue-600 font-semibold'>Deadline:</span> {dateTimeFormated}</h3>
 
             <div className='flex justify-between items-center mb-2 mt-3'>
+
                 {
-                    todo.todoStatus === "done" ? <span className='bg-green-300 px-2 py-1 rounded-lg'>Completed</span> : <div>
+                    todo.todoStatus === "done" ? <span className='bg-green-300 px-2 py-1 rounded-lg'>Completed</span> 
+                    
+                    : <div>
                         {/* edit button  */}
                         <button onClick={() => handleEditTodoItem(todo._id)} type='button' className='bg-[#950CF5] p-1 rounded-2xl text-white text-lg cursor-pointer'><FaEdit /></button>
-                        {/* delete button  */}
+                        
+                    </div>
+                }
+                {/* delete button  */}
                         <button onClick={() => handleDeleteTodoItem(todo._id)} type='button' className='ml-3 bg-[#00AC41] p-1 rounded-2xl text-white text-lg cursor-pointer'>
                             <MdDeleteForever />
                         </button>
-                    </div>
-                }
                 <p className='mt-2'><span className='text-amber-500 font-semibold'>Status: </span>{todo.todoPriority}</p>
             </div>
         </div>

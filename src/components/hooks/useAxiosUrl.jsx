@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const useAxiosUrl = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://kanban-board-server-side-app-assessment.onrender.com'
 });
 
 export default useAxiosUrl;
