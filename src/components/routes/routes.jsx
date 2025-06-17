@@ -5,12 +5,14 @@ import App from "../../App"
 import LogIn from "../AuthenticatePages/LogIn/LogIn";
 import Register from "../AuthenticatePages/Register/Register";
 import Home from "../Home/Home";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 // Configure React Router 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <App></App>,
+        errorElement: <NotFoundPage></NotFoundPage>,
         children: [
             {
                 path: "/",
