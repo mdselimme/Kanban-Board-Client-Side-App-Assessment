@@ -54,7 +54,7 @@ const LogIn = () => {
 
     return (
         <section>
-            <div className='w-[35rem] mt-24 rounded-4xl p-16 mx-auto bg-[rgba(148,12,245,0.05)]'>
+            <div className='w-full md:w-2/6 md:mt-24 rounded-4xl p-4 m-4 md:p-16 mx-auto bg-[rgba(148,12,245,0.05)]'>
                 <h1 className="text-4xl text-center font-bold mb-10 text-[#04141E]">Login</h1>
                 <form onSubmit={handleLogInSubmit}>
                     <div className="border-b border-[#E3E3E3] pb-2">

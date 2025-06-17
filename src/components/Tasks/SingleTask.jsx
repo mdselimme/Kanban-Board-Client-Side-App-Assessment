@@ -11,6 +11,7 @@ const SingleTask = ({ todo }) => {
 
     const { setCallFetch, setOpenUpdateTask, setSingleTodo } = useAuth();
 
+    // Drag Container 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "todo",
         item: { id: todo._id, status: todo.todoStatus },
@@ -22,17 +23,29 @@ const SingleTask = ({ todo }) => {
     // DeleteItem From Todos 
     const handleDeleteTodoItem = async (todoId) => {
         try {
-            const response = await useAxiosUrl.delete(`/todos/delete/${todoId}`);
-            const data = await response.data;
-            if (data.success) {
-                setCallFetch(true);
-                Swal.fire({
-                    icon: "success",
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            };
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const response = await useAxiosUrl.delete(`/todos/delete/${todoId}`);
+                    const data = await response.data;
+                    if (data.success) {
+                        setCallFetch(true);
+                        Swal.fire({
+                            icon: "success",
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    };
+                }
+            });
         } catch (error) {
             Swal.fire({
                 icon: "error",
@@ -43,6 +56,7 @@ const SingleTask = ({ todo }) => {
         }
     };
 
+    // Deadline Formate for show card 
     const deadline = new Date(todo.todoDeadline);
     const dateTimeFormated = deadline.toLocaleString("en-GB", {
         year: "numeric",
@@ -73,20 +87,23 @@ const SingleTask = ({ todo }) => {
 
     return (
         <div ref={drag} className={`${isDragging ? "bg-slate-100 opacity-50" : "bg-white"} my-4 p-4 rounded-2xl cursor-grab`}>
-            <div className='flex justify-between items-center mb-2'>
-                <h1>{todo.todoTitle}</h1>
-                <div>
-                    {/* edit button  */}
-                    <button onClick={() => handleEditTodoItem(todo._id)} type='button' className='bg-[#950CF5] p-1 rounded-2xl text-white text-lg cursor-pointer'><FaEdit /></button>
-                    {/* delete button  */}
-                    <button onClick={() => handleDeleteTodoItem(todo._id)} type='button' className='ml-3 bg-[#00AC41] p-1 rounded-2xl text-white text-lg cursor-pointer'>
-                        <MdDeleteForever />
-                    </button>
-                </div>
+            <h3><span className='text-blue-600 font-semibold'>Title:</span> <br /> {todo.todoTitle}</h3>
+            <p className='mb-2 mt-2'><span className='text-amber-500 font-semibold'>Description:</span> <br /> {todo.todoDescription}</p>
+            <h3><span className='text-blue-600 font-semibold'>Deadline:</span> {dateTimeFormated}</h3>
+
+            <div className='flex justify-between items-center mb-2 mt-3'>
+                {
+                    todo.todoStatus === "done" ? <span className='bg-green-300 px-2 py-1 rounded-lg'>Completed</span> : <div>
+                        {/* edit button  */}
+                        <button onClick={() => handleEditTodoItem(todo._id)} type='button' className='bg-[#950CF5] p-1 rounded-2xl text-white text-lg cursor-pointer'><FaEdit /></button>
+                        {/* delete button  */}
+                        <button onClick={() => handleDeleteTodoItem(todo._id)} type='button' className='ml-3 bg-[#00AC41] p-1 rounded-2xl text-white text-lg cursor-pointer'>
+                            <MdDeleteForever />
+                        </button>
+                    </div>
+                }
+                <p className='mt-2'><span className='text-amber-500 font-semibold'>Status: </span>{todo.todoPriority}</p>
             </div>
-            <h1 className='mb-2'>{todo.todoDescription}</h1>
-            <h3>Deadline: {dateTimeFormated}</h3>
-            <p className='text-end mt-2'>{todo.todoPriority}</p>
         </div>
     );
 };

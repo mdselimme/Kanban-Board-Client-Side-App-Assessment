@@ -9,7 +9,7 @@ function App() {
 
 
   return (
-    <div className="bg-amber-50 min-h-screen">
+    <div className="min-h-screen min-w-fit">
       <DndMultiBackendProvider>
         <Navbar></Navbar>
         <Outlet></Outlet>
