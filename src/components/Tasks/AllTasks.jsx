@@ -9,25 +9,23 @@ const AllTasks = ({ todoStatus, categorized }) => {
 
     const { setCallFetch } = useAuth();
 
-    console.log(categorized)
-
+    // Drop Functionality 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "todo",
-        drop: (item) => addTodoWhereIsDropping(item.id),
+        drop: (item) => updateStatusChange(item.id),
         collect: (monitor) => ({
             isOver: !monitor.isOver()
         })
     }));
 
-    const addTodoWhereIsDropping = async (id) => {
-        console.log(id, isOver, todoStatus)
+    // Status Update And send Server Call 
+    const updateStatusChange = async (id) => {
         try {
-            console.log(id)
+            // Call Upadate Status Api 
             const res = await useAxiosUrl.patch(`/todos/update-status/${id}`, { todoStatus });
             const response = await res.data;
-            console.log(response)
             if (response.success) {
-                setCallFetch(true)
+                setCallFetch(true);
                 Swal.fire({
                     icon: "success",
                     title: response.message,
@@ -35,16 +33,6 @@ const AllTasks = ({ todoStatus, categorized }) => {
                     timer: 1500
                 });
             }
-
-            // setTodosByUser((prev) => {
-            //     const modifyTodo = prev.map((td) => {
-            //         if (td._id === id) {
-            //             return { ...td, todoStatus: todoStatus };
-            //         }
-            //         return td;
-            //     })
-            //     return modifyTodo;
-            // });
         } catch (error) {
             Swal.fire({
                 icon: "error",
@@ -61,6 +49,7 @@ const AllTasks = ({ todoStatus, categorized }) => {
             <h2 className='text-center uppercase mb-5 text-xl font-semibold'>
                 {todoStatus} <span className='bg-white p-2 rounded-full'>{categorized[todoStatus].length}</span>
             </h2>
+            {/* Fetch Single Task  */}
             {
                 categorized[todoStatus].map((stTd, idx) => <SingleTask todo={stTd} key={idx}></SingleTask>)
             }
