@@ -3,10 +3,11 @@ import { useDrop } from 'react-dnd';
 import SingleTask from './SingleTask';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosUrl from '../hooks/useAxiosUrl';
 
 const AllTasks = ({ todoStatus, categorized }) => {
 
-    const { setTodosByUser } = useAuth();
+    const { setCallFetch } = useAuth();
 
     console.log(categorized)
 
@@ -21,15 +22,29 @@ const AllTasks = ({ todoStatus, categorized }) => {
     const addTodoWhereIsDropping = async (id) => {
         console.log(id, isOver, todoStatus)
         try {
-            setTodosByUser((prev) => {
-                const modifyTodo = prev.map((td) => {
-                    if (td._id === id) {
-                        return { ...td, todoStatus: todoStatus };
-                    }
-                    return td;
-                })
-                return modifyTodo;
-            });
+            console.log(id)
+            const res = await useAxiosUrl.patch(`/todos/update-status/${id}`, { todoStatus });
+            const response = await res.data;
+            console.log(response)
+            if (response.success) {
+                setCallFetch(true)
+                Swal.fire({
+                    icon: "success",
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+
+            // setTodosByUser((prev) => {
+            //     const modifyTodo = prev.map((td) => {
+            //         if (td._id === id) {
+            //             return { ...td, todoStatus: todoStatus };
+            //         }
+            //         return td;
+            //     })
+            //     return modifyTodo;
+            // });
         } catch (error) {
             Swal.fire({
                 icon: "error",
