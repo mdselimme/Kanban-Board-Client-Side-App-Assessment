@@ -9,6 +9,7 @@ const Home = () => {
     const { loggedIn } = useAuth();
     return (
         <section className='container mx-auto'>
+            {/* Conditional Rendering By Login Wise  */}
             {
                 loggedIn ? <>
                     <AddTask></AddTask>

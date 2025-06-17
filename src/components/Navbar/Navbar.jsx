@@ -45,7 +45,7 @@ const Navbar = () => {
                 {/* header Logo  */}
                 <div className="navbar-left-logo">
                     <Link to={'/'}>
-                        <h1 className="text-4xl font-bold"><span className="text-[#00C54E]">Kanban</span><span className="text-[#9108F0]">Board.</span></h1>
+                        <h1 className=" md:text-4xl sm:text-3xl font-bold"><span className="text-[#00C54E]">Kanban</span><span className="text-[#9108F0]">Board.</span></h1>
                     </Link>
                 </div>
                 {/* Header Button  */}

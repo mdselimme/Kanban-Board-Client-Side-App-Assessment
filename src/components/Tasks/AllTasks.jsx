@@ -12,15 +12,18 @@ const AllTasks = ({ todoStatus, categorized }) => {
     // Drop Functionality 
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "todo",
-        drop: (item) => updateStatusChange(item.id),
+        drop: (item) => updateStatusChange(item.id, item.status),
         collect: (monitor) => ({
             isOver: !monitor.isOver()
         })
     }));
 
     // Status Update And send Server Call 
-    const updateStatusChange = async (id) => {
+    const updateStatusChange = async (id, status) => {
         try {
+            if (status === todoStatus) {
+                return;
+            }
             // Call Upadate Status Api 
             const res = await useAxiosUrl.patch(`/todos/update-status/${id}`, { todoStatus });
             const response = await res.data;
@@ -49,6 +52,9 @@ const AllTasks = ({ todoStatus, categorized }) => {
             <h2 className='text-center uppercase mb-5 text-xl font-semibold'>
                 {todoStatus} <span className='bg-white p-2 rounded-full'>{categorized[todoStatus].length}</span>
             </h2>
+            {
+                categorized[todoStatus].length === 0 ? <p className='text-center py-10 font-semibold'>No Task Found in - <span className='uppercase text-blue-600'>{todoStatus}</span></p> : ""
+            }
             {/* Fetch Single Task  */}
             {
                 categorized[todoStatus].map((stTd, idx) => <SingleTask todo={stTd} key={idx}></SingleTask>)

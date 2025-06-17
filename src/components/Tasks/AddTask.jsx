@@ -71,10 +71,10 @@ const AddTask = () => {
     }, []);
 
     return (
-        <div>
+        <div className='sm:px-3'>
             <h1 className='text-3xl font-bold'>Add Your Task</h1>
             {/* Add Task Body  */}
-            <form onSubmit={handleTaskFormSubmit} className='mt-8 grid grid-cols-4 items-start gap-10'>
+            <form onSubmit={handleTaskFormSubmit} className='mt-8 grid sm:grid-cols-1 md:grid-cols-4 items-start gap-10'>
                 {/* task title  */}
                 <div className="border-b border-[#E3E3E3] pb-2">
                     <label htmlFor="title" className="text-base font-medium text-[#04141E]">Task Title <span className='text-red-600'>*</span></label>

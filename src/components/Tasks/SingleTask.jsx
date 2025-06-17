@@ -13,7 +13,7 @@ const SingleTask = ({ todo }) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "todo",
-        item: { id: todo._id },
+        item: { id: todo._id, status: todo.todoStatus },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
