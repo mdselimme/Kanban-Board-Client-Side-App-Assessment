@@ -9,7 +9,7 @@ import { useDrag } from 'react-dnd';
 const SingleTask = ({ todo }) => {
 
 
-    const { setCallFetch } = useAuth();
+    const { setCallFetch, setOpenUpdateTask, setSingleTodo } = useAuth();
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "todo",
@@ -43,9 +43,32 @@ const SingleTask = ({ todo }) => {
         }
     };
 
+    const deadline = new Date(todo.todoDeadline);
+    const dateTimeFormated = deadline.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    });
+
     // Edit Item From Todos 
     const handleEditTodoItem = async (todoId) => {
-        console.log(todoId)
+        try {
+            const resp = await useAxiosUrl.get(`/todos/todo/${todoId}`);
+            const response = await resp.data;
+            setSingleTodo(response);
+            setOpenUpdateTask(true);
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: error.response.data.message,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
     }
 
     return (
@@ -62,7 +85,7 @@ const SingleTask = ({ todo }) => {
                 </div>
             </div>
             <h1 className='mb-2'>{todo.todoDescription}</h1>
-            <h3>Deadline: {todo.todoDeadline}</h3>
+            <h3>Deadline: {dateTimeFormated}</h3>
             <p className='text-end mt-2'>{todo.todoPriority}</p>
         </div>
     );

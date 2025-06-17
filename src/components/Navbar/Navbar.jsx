@@ -40,12 +40,12 @@ const Navbar = () => {
     };
 
     return (
-        <section className="container mx-auto py-10">
+        <section className="container mx-auto px-2 sm:px-0 py-10">
             <div className="navbar-body flex justify-between items-center">
                 {/* header Logo  */}
                 <div className="navbar-left-logo">
                     <Link to={'/'}>
-                        <h1 className=" md:text-4xl sm:text-3xl font-bold"><span className="text-[#00C54E]">Kanban</span><span className="text-[#9108F0]">Board.</span></h1>
+                        <h1 className=" md:text-4xl text-3xl font-bold"><span className="text-[#00C54E]">Kanban</span><span className="text-[#9108F0]">Board.</span></h1>
                     </Link>
                 </div>
                 {/* Header Button  */}
