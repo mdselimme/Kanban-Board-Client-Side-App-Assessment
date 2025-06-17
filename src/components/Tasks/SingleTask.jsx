@@ -4,10 +4,20 @@ import { FaEdit } from "react-icons/fa";
 import useAxiosUrl from '../hooks/useAxiosUrl';
 import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
+import { useDrag } from 'react-dnd';
 
 const SingleTask = ({ todo }) => {
 
+
     const { setCallFetch } = useAuth();
+
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "todo",
+        item: { id: todo._id },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    }));
 
     // DeleteItem From Todos 
     const handleDeleteTodoItem = async (todoId) => {
@@ -39,7 +49,7 @@ const SingleTask = ({ todo }) => {
     }
 
     return (
-        <div className='bg-white my-4 p-4 rounded-2xl cursor-grab'>
+        <div ref={drag} className={`${isDragging ? "bg-slate-100 opacity-50" : "bg-white"} my-4 p-4 rounded-2xl cursor-grab`}>
             <div className='flex justify-between items-center mb-2'>
                 <h1>{todo.todoTitle}</h1>
                 <div>

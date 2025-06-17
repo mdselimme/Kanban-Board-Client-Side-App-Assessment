@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
 
 
     const authValue = {
-        loggedIn, setLoggedIn, user, setUser, todosByUser, setCallFetch
+        loggedIn, setLoggedIn, user, setUser, todosByUser, setCallFetch, setTodosByUser
     }
 
     return (

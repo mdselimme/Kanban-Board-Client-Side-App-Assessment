@@ -1,6 +1,6 @@
-import React from 'react';
 import useAuth from '../hooks/useAuth';
 import SingleTask from './SingleTask';
+import AllTasks from './AllTasks';
 
 const TaskSection = () => {
 
@@ -12,28 +12,27 @@ const TaskSection = () => {
         done: []
     };
 
+
     todosByUser.forEach((item) => {
         categorized[item.todoStatus].push(item);
     });
 
+
     const category = Object.keys(categorized);
+
+    console.log(category)
 
 
     return (
         <div className='mt-8'>
             <h1 className='text-center mb-8 text-2xl font-bold'>Task Section</h1>
-            <div className='grid grid-cols-3 items-start gap-24'>
+            <div className={`grid grid-cols-3 items-stretch min-h-96 gap-24`}>
                 {
-                    category.map((td, index) =>
-                        <div className='bg-blue-100 py-4 px-8 rounded-4xl' key={index}>
-                            <h2 className='text-center uppercase mb-5 text-xl font-semibold'>
-                                {td}
-                            </h2>
-                            {
-                                categorized[td].map((stTd, idx) => <SingleTask todo={stTd} key={idx}></SingleTask>)
-                            }
-                        </div>
-                    )
+                    category.map((todoStatusKey, index) => <AllTasks
+                        key={index}
+                        todoStatus={todoStatusKey}
+                        categorized={categorized}
+                    ></AllTasks>)
                 }
             </div>
         </div>
